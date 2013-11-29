@@ -1,0 +1,197 @@
+%command_help = (
+	CGETADC =>
+'Analóg-digitál konverter értékeit jeleníti meg, egységben. A megjelenített értékek: tápfeszültség, TPS bemenet feszültség, ICT bemenet feszültség, lambda be- és kimenet feszültség.
+Használata pl. az ICT szenzor kalibrálásához nyújt segítséget.',
+	CGETANALOG =>
+'Az analóg bemenetek kalkulált feszültségértékeit jeleníti meg, V-ban ill. mV-ban. A megjelenített értékek: tápfeszültség, TPS bemenet feszültség, ICT bemenet feszültség, lambda be- és kimenet feszültség.',
+	CGETDATA =>
+'Élő adatok sorban (az eleje ugyanaz mint CSETMON-nál, csak mértékegység és egyebek nélkül).
+Formátum: [D]0/0/2000/0/2000/0/0.00/0.00/0/34/0/0.00/26/0/24/0/1/69/0/119/1/0/0/0[E]',
+	CGETERROR =>
+'Az injektorok kapacitásbeli hibáját (100%-os nyitáson való túlfutást) és a lambda trimmer túlfutási hibát mutatja, amennyiben van ilyen. Ha az injektorokra ad ilyen hibát, az azt jelenti, hogy a gyári injektorokkal nem aknázható ki E85 üzemben a motor teljes ereje a magasabb fordulatszám-tartományban. Ha a lambda trimmerre ad túlfutási hibát (>1), akkor a lambda áramkörben valami hiba van, vagy rosszak a trimmer beállítások. Továbbá itt lehet megnézni a hőmérséklet szenzor mérőfeszültségének ugrási hibáját is, ha ez motor felmelegítés után 200, akkor mérőfeszültség váltás történt, és a szenzor nem alkalmas a kithez.',
+	CGETFUEL =>
+'Üzemanyag típusát adja vissza. Tiszta benzin, tiszta E85 és kevert benzin-E85 üzemet tud megkülönböztetni. Amíg a motor nem üzemmeleg, és a lambdaszabályzás nem stabil (LL), az utóbbit adja vissza minden esetben.',
+	CGETICT =>
+'Aktuális motorhőmérsékletet adja vissza Celsius fokban. 0 fok a minimum, 100 fok a maximum értéke.',
+	CGETLLIST =>
+'Elemzett lambdaablak aktuális értéktáblázatát listázza ki.',
+	CGETMODE =>
+'Aktuális beállított üzemmódot adja meg, illetve a lambdaszabályzás, sport és eco mód aktuális állapotát jelzi ki.',
+	CGETPARAM =>
+'Az átalakító összes beállított paraméterét listázza ki.',
+	CGETPOWER =>
+'A tápfeszültség értékét adja vissza V-ban.',
+	CGETRICH =>
+'A motor indítása óta mért üzemmód időarányokat írja ki, valamint a jósolt összes túlfogyasztási értéket százalékban. Mért üzemmód idők: normál, eco, sport, hideg.',
+	CGETRPM =>
+'Az aktuális fordulatszámot lehet lekérdezni, az érték fordulat/percben értendő.',
+	CGETSTAT =>
+'Élő adatok, hasonlóan a CGETDATA parancshoz.
+Formátum: [S]a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s[E]',
+	CGETSYS =>
+'A CGETMODE parancshoz hasonlóan az aktuális üzemmódokat adja vissza, kiegészítve az indítás óta eltelt idővel, mely tized ms-ban van értelmezve.',
+	CGETTABLE1 =>
+'Hőmérséklet – befecskendezési idő módosítás táblát listázza ki. Felső sorban a hőmérséklet értékek, alsóban a két fenti hőmérséklet közti módosító paraméter százalékban. Hidegindítás után és a melegedési szakaszban ennek a táblának a módosító tényezői befolyásolják az alap dúsítási értéket.
+A képlet:
+dúsítás = ( ( ( 100 + [ alap dúsítás (%) ] ) *
+          * ( 100 + [ table1 érték (%) ] ) ) / 100 ) – 100 (%)',
+	CGETTABLE2 =>
+'Gázpedálállás szerinti dúsítási táblázat (1.). Ebben a táblázatban megadható, hogy bizonyos gázpedálállásoknál mekkora dúsítási tényezővel kalkuláljon az átalakító. Ez a táblázat csak a fordulatszám táblázattal (1.) együtt használatos a 4. üzemmódban.
+A képlet:
+dúsítás = ( ( ( 100 + [ table4 érték (%) ] ) *
+          * ( 100 + [ table2 érték (%) ] ) ) / 100 ) – 100 (%)',
+	CGETTABLE3 =>
+'Gázpedálállás szerinti dúsítási táblázat (2.). Ebben a táblázatban megadható, hogy bizonyos gázpedálállásoknál mekkora dúsítási tényezővel kalkuláljon az átalakító. Ez a táblázat csak a fordulatszám táblázattal (2.) együtt használatos a 6. üzemmódban.
+A képlet:
+dúsítás = ( ( ( 100 + [ table5 érték (%) ] ) *
+          * ( 100 + [ table3 érték (%) ] ) ) / 100 ) – 100 (%)',
+	CGETTABLE4 =>
+'Fordulatszám szerinti dúsítási táblázat (1.). Ebben a táblázatban megadható, hogy bizonyos fordulatszámoknál mekkora dúsítási tényezővel kalkuláljon az átalakító. Ez a táblázat önmagában használható a 3. üzemmódban az átalakító programozására, illetve a gázpedálállás szerinti táblázattal (1.) együtt használatos a 4. üzemmódban. A képlet fentebb.',
+	CGETTABLE5 =>
+'Fordulatszám szerinti dúsítási táblázat (2.). Ebben a táblázatban megadható, hogy bizonyos fordulatszámoknál mekkora dúsítási tényezővel kalkuláljon az átalakító. Ez a táblázat önmagában használható az 5. üzemmódban az átalakító programozására, illetve a gázpedálállás szerinti táblázattal (2.) együtt használatos a 6. üzemmódban. A képlet fentebb.',
+	CGETTABLE6 =>
+'Injektor maximális kapacitás túllépési eseményét ebbe a táblázatba rögzíti az átalakító. A táblázat felső sora a fordulatszámot jelöli, ahol a kapacitástúllépés történt, az alsó sora pedig a kapacitás mérőszámát százalékban. Maximálisan 10 ilyen esemény rögzíthető egy ciklusban, azaz a motor elindításától kezdve a motor leállításáig.',
+	CGETTEMP =>
+'Környezeti hőmérsékletet adja vissza, Celsius fokban. A hőmérséklet mérő az átalakító dobozában került elhelyezésre, annak belső hőmérsékletét méri (így az működés közben több is lehet a környezeti értéknél).',
+	CGETTIME =>
+'Indítás óta eltelt idő lekérésére lehet használni, tized ms-ban.',
+	CGETTPS =>
+'Gázpedálállást lehet lekérni ezzel a paranccsal, százalékban.',
+	CSETCAPMAX =>
+'Az injektor kapacitási határértékének beállítására használható parancs. Ha a kapacitás a határértéket átlépi, akkor az átalakító a dúsítást visszaszabályozza, a kapacitási határérték alá. Az ilyen eseményeket a 6. táblába rögzíti is az átalakító fordulatszám értékkel együtt.
+Értéke 30 és 99 (%) közt lehet.
+Formátum az alapértékkel: CSETCAPMAX=95',
+	CSETCCM =>
+'Injektor kapacitás beállítására szolgáló parancs (min. v1.11 SW). A pontos fogyasztásméréshez szükséges ennek a beállítása. Értéke az injektorok össz kapacitási adata, azaz ha az autóban levő 4db injektor egyenkénti kapacitása 141ccm/perc, akkor az összes elméleti kapacitás 4*141=564. A gyakorlatban ettől pár százalékkal eltérő értéket kell beállítani, az ad pontos fogyasztási adatot.
+Érték: 0-9999. CSETCCM=0600',
+	CSETCOLD =>
+'Hidegindításhoz használatos paraméter, mellyel az indítózáskor működő hidegindító algoritmus beavatkozásának erősségét lehet beállítani. Értéke általában 12-20 között van, de 0 és 25 között lehet.
+Formátum az alapértékkel: CSETCOLD=12 (mindenképpen két karakter, ha szükséges, előtte nullával)',
+	CSETDIST =>
+'Aktuális összes km beállítására szolgáló parancs a statisztikai adatokhoz. Ez az érték megőrződik az átalakítóban, mindig az aktuális értéket fogja az átalakító elmenteni.
+Érték: 0-999999 CSETDIST=084321',
+	CSETECO =>
+'Eco mód második fázisának tiltása vagy engedélyezése (első fázis mindig aktív). Az 1. üzemmódban a feltételek teljesülése esetén engedélyezett állapotban bekapcsol az eco mód, mellyel gazdaságosabbá lehet tenni az utazást.
+Értékei: 0 (tiltott) ,1 (alap eco), 2 (újabb eco).
+Formátum az alapértékkel: CSETECO=0',
+	CSETFALLTIME =>
+'Sport mód kikapcsolási idejét lehet megadni ezzel a paranccsal, másodpercben. Ha a sport mód feltételei megszűntek, ill. a feltételei nem teljesülnek az itt megadott időn belül, akkor a sport mód kikapcsol. Ezzel a beállítási lehetőséggel lehet megakadályozni, hogy pl. a sebességi fokozat váltása közben kikapcsoljon a sport mód.
+Értéke általában 3-5mp, de 0 és 29mp között lehet.
+Formátum az alapértékkel: CSETFALLTIME=03 (mindenképpen két karakter, ha szükséges, előtte nullával)',
+	CSETFIRST =>
+'Hidegindítási extra paraméterek beállítása lehetséges ezzel a paranccsal. Egyrészt hidegindításnál lehet engedélyezni egy plusz befecskendezési eljárást, és annak idejét lehet állítani ms-ban. Másrészt a hidegindító algoritmus által beállított dúsítási érték tartását lehet meghatározni ciklusok számával (motorciklus).
+Értékek: extra befecskendezési eljárás engedélyezése 0 vagy 1 (engedélyezett), befecskendezés ideje 0...99ms, indítási dúsítás tartása 0...99 ciklus.
+Formátum és alapértékek: CSETFIRST=1,40,16 (2. és 3. mindenképpen két karakter, ha szükséges, előtte nullával)',
+	CSETICTCOLD =>
+'Motor hőmérséklet szenzor illesztése hideg oldalon. Ennek a parancsnak a hatására automatikusan beparaméterezi a hideg oldali szenzor értéket. A szenzor paraméterezés akkor történik meg, mikor a kalibrálást a CSETICTHOT paranccsal lezárjuk!
+Érték: 0-50 fok. A mérést pontosan kell végezni!
+CSETICTCOLD=40 (40 fokos motornál, mindenképpen két karakter)',
+	CSETICTHOT =>
+'Motor hőmérséklet szenzor illesztése meleg oldalon. Ha a motor üzemmeleg, akkor ezzel a paranccsa automatikusan be lehet paraméterezni a melegponti értéket, ezzel a meleg oldali illesztést végre is lehet hajtani. CSETICTCOLD parancs után mindenképpen használatos ez a parancs!
+Érték: 90-99 fok.
+CSETICTHOT=92 (92 fokos motornál, mindenképpen két karakter)',
+	CSETICTPARAM =>
+'Motor hőmérséklet szenzor manuális beparaméterezése. Az első paraméter a hideg oldali fagyponti egységértéke, a második a meleg oldali forrásponti egységértéke. Az értékek ADC egységben kerülnek megadásra és értelmezésre. Az aktuális ADC egységértékeket a CGETADC paranccsal lehet lekérdezni. Tehát ha pl. nulla fokos a motor, akkor az az érték lehet a hideg oldali paraméter, amit a CGETADC ad vissza az ICT mezőnél.
+Értékek mindkét paraméternél 0...999 lehetnek.
+Formátum: CSETICTPARAM=255,040 (mindenképpen három karakter, ha szükséges, előtte nullával)',
+	CSETIDLE =>
+'Benzin üzemű üzemmeleg alapjárati gyári befecskendezési idő automatikus beparaméterezése. Ha a motor üzemmelegen alapjáraton jár tisztán benzinnel, és az átalakító 0-s üzemmódban van, ezt a parancsot kiadva az átalakító automatikusan beállítja azt az értéket, amivel ezután számolhat az üzemanyag típusának meghatározásához. Nem mindig teljesen pontos, utólagos érték ellenőrzés szükséges! Paraméter nem kell ehhez a parancshoz.',
+	CSETINIT =>
+'Az átalakító gyári értékekkel történő inicializálása. Minden egyénileg beállított paraméter elveszik ennek a parancsnak az alkalmazásával. Paramétert nem kell hozzá írni.',
+	CSETINJAUTO =>
+'Befecskendezés dúsítás szabályozási algoritmus paraméterezése. Az első paraméter a dúsítási trimmer lépésszáma, ami általában 2, de ennek értéke lehet 1...9 közti. A második paraméter a szabályozás ciklusideje ms-ban. Ennek ajánlott értéke 800ms, de lehet 300...999ms között. Ezt a parancsot csak speciális esetben szabad használni.
+Formátum az alapértékekkel: CSETINJAUTO=2,800',
+	CSETINJPARAM =>
+'Befecskendezési alapparaméterek beállítása. Első paraméter az alap, második a növelt, harmadik a meleg indítási, negyedik a maximális dúsítási érték, mindegyik százalékban megadva. A növelt dúsítási érték használata a sport módban van. A maximális dúsítási értéket normál módban veszi figyelembe az átalakító, maximum ennyi lehet a dúsítás mértéke. Sport módban ennek az értéknek a másfélszerese a határérték.
+Értékek lehetnek: 00...99 (%).
+Formátum az általában használatos értékekkel: CSETINJPARAM=16,24,10,26 (mindenképpen két karakter, ha szükséges, előtte nullával)',
+	CSETLAM =>
+'Lambda szabályozás alapparaméterei. Az első érték a lambda feszültségjel hitelesítését szolgálja, ennek alapértéke 135 (v1.2 hardver esetén 185, v1.1 esetén 175). Amennyiben az élő adatoknál a számított lambda érték nem 0.99-1.01 között alakul normál módban (nem eco, nem sport) nagyrészt, ennek a paraméternek a finomállításával lehet hitelesíteni az átalakító által mért értékeket.
+Értéke lehet: 0...249. A második paraméter a lambdafüggvény mintavételezési ideje ms-ban. Ez alapból 40ms, de ha a gyári vezérlő lambdaszabályozási rendszere lassú, akkor ezt az értéket feljebb lehet állítani a pontosabb függvényelemzés miatt. Szélessávú szonda esetén ennek a parancsnak a fix értéke 245,50!
+Értéke lehet: 40...99ms.
+Formátum az általános értékekkel: CSETLAM=135,40',
+	CSETLAMMUL =>
+'Sport módban a lambda kimeneten alkalmazott minimális megkívánt lambdaérték. Itt megadhatjuk azt a lambdaértéket, aminél kisebb értéket nem akarunk a motorvezérlőre adni. Tehát míg valójában a lambdaérték pl. 0.86, a motorvezérlő 92-es LAMMUL értéknél 0.92 felettinek látja a lambda bemenetén ezt az értéket.
+Értékek lehetnek: 70...99.
+Formátum az általános értékkel: CSETLAMMUL=92',
+	CSETLAMOFFS =>
+'Lambda offset feszültség esetén (amikor a jelföld nem 0V-on van) ezzel a paranccsal lehet beállítani az offset értéket. Továbbá ezzel a paranccsal állítható be a lambda kimenet maximális feszültsége (offset nélkül) is.
+Értékek lehetnek: offset=000...250 (0-2500mV), kimenet max feszültség: 060...120 (600- 1200mV).
+Formátum az általános értékkel: CSETLAMOFFS=000,090',
+	CSETLAMRISE =>
+'Lambdaszabályzás éledési feltételei. Az első paramétere jelenleg nem használatos. Második paramétere az a motor hőfok érték, aminél a lambda alapján kezdhet szabályozni az átalakító, addig mindenképpen statikusan működik.
+Értékek lehetnek: lambdaszabályzás éledési hőfok: 00...99 (0-99fok).
+Formátum az általános értékkel: CSETLAMRISE=00,50',
+	CSETLAMTYPE =>
+'Ezzel a parancsal beállíthatjuk a járműben használt lambdaszonda által leadott jel jellegtípusát. Az öregebb keskenysávú lambdaszondák dús szakaszban megváltozott jelleggörbével adják ki a jelet, ezért kicsit csalóka lehet az értékük.
+Értéke lehet: 0 (öregebb keskenysávú lambdaszonda jelleggörbéje), 1 (normál keskenysávú jelleggörbe), 2 (szélessávú 5-6 vezetékes szonda).
+Formátum az általános értékkel: CSETLAMTYPE=1',
+	CSETLAMWIN =>
+'Sport módban a kívánt lambdaablak definiálása, amit az átalakító megpróbál tartani. Az első paraméter a sport lambdaablak felső határértéke, a második paraméter az alsó határértéke. Az értékek lehetnek: 70...99. Az alsó értéknek alacsonyabbnak kell lennie a felsőnél. Sport módban fix dúsítási értéket is el lehet érni ezzel a beállítással: 99,70. Ilyenkor sport módban mindig az injparam második értékével dúsít az átalakító fixen.
+Formátum az általános beállítással: CSETLAMWIN=88,84',
+	CSETMODE =>
+'Aktuális üzemmód beállítása. Ezek az üzemmódok kerülhetnek beállításra:
+0: Kikapcsolt dúsítási mód, ilyenkor az átalakító nem szól bele a befecskendezésbe
+1: Automata normál mód (automata eco és sport móddal kiegészítve) lambda alapján
+2: Állandó sport mód lambda alapján
+3: Fordulatszám tábla szerinti programozott fix mód (1.)
+4: Fordulatszám és gázpedálállás tábla szerinti programozott fix mód (1.)
+5: Fordulatszám tábla szerinti programozott fix mód (2.)
+6: Fordulatszám és gázpedálállás tábla szerinti programozott fix mód (2.)
+7: Fix dúsítási mód (gázpedálállás szerint normál vagy növelt fix dúsítás)
+Az első két üzemmódhoz szükséges a keskenysávú vagy szélessávú 5-6 vezetékes lambdaszonda, és a gázpedálállás érzékelő bekötése az átalakítóba. A 4. és 6. üzemmódhoz szintén szükséges a gázpedálállás érzékelő bekötése (lambdaszonda itt nem szükséges).
+Formátum az általános beállítással: CSETMODE=1',
+	CSETMON =>
+'Élőadatok monitorozását elindító és leállító parancs. Hatására folyamatosan másodpercenként listázza tematikai rendben az élőadatokat az átalakító. A struktúráról a későbbiekben ejtünk szót. Paraméterezni nem kell ezt a parancsot. Terminal.exe programnál használatos.',
+	CSETONTIMEREF =>
+'Benzin üzemű üzemmeleg alapjárati gyári befecskendezési idő manuális paraméterezése. Ez az az érték, amivel ezután meghatározhatja az átalakító az üzemanyag típusát.
+Értéke lehet: 10...99, mely tized ms-ban (és arra kerekítve) jelöli az időt. Tehát a 2.04ms paramétere 20.
+Formátum az alapértékkel: CSETONTIMEREF=20',
+	CSETRPM =>
+'Fordulatszám méréséhez szükséges paraméter beállítása. Ez a paraméter egy viszonyszám, melyet akkor kell arányosan változtatni, ha eltér az átalakító által mért, és a valós fordulatszám (injektor kezelés okozhat eltérést egyes típusoknál). Tehát ha az 1200-as alapérték mellett mondjuk feleannyi a mért fordulatszám, mint a valós, akkor ezt a paramétert a kétszeresére kell növelni, azaz 2400-ra.
+Értékek lehetnek: 300...4999.
+Formátum az alapértékkel: CSETRPM=1200 (mindenképpen négy karakter, ha szükséges, előtte nullával)',
+	CSETSILENT =>
+'Élő adatok (CGETDATA, CGETSTAT) küldésének kikapcsolása.',
+	CSETSPEED =>
+'Pontos sebesség és megtett út méréséhez szükséges útjeladó impulzusszám beállítása.
+Értéke az útjeladó által leadott impulzusok száma kilométerenként.
+Ha ez az adat nem ismert, akkor könnyen be lehet állítani az aktuális sebesség figyelésével. Addig kell állítani, amíg a kijelzett sebesség meg nem egyezik a ténylegessel.
+Érték: 0-99999. CSETSPEED=08500',
+	CSETSPORT =>
+'Sport mód tiltása vagy engedélyezése. Az átalakító 1. üzemmódjában a feltételek teljesülése esetén engedélyezett állapotban bekapcsol a sport mód, mellyel sportosabbá, rugalmasabbá lehet tenni az utazást (a gazdaságosság kárára).
+Értékei: 0 (tiltott) és 1 (engedélyezett).
+Formátum az alapértékkel: CSETSPORT=0',
+	CSETSWMODE =>
+'Manuális kapcsoló funkcionális engedélyezése. Az opcionális kapcsoló a 0. üzemmód és a CSETMODE által beállított üzemmód közül választhat. 8 hengeres átalakító esetén az opció nem működik, ez kötelezően 0 kell maradjon.
+Érték: 0 (nem engedélyezett), 1 (engedélyezett). CSETSWMODE=0',
+	CSETTABFILL =>
+'Táblázat kitöltése azonos értékkel. Első paramétere a táblázat száma, második a kitöltő érték.
+Értékek lehetnek a táblázat számánál: 1...6, a táblázat értékénél: 0...199. A 6. táblázat beírt értéktől függetlenül csak 0-val íródik felül.
+Formátum: CSETTABFILL=1,002 (második mindenképpen három karakter, ha szükséges, előtte nullával)',
+	CSETTABPOINT =>
+'Táblázat egy pontjának kitöltése egy bizonyos értékkel. Első paramétere a táblázat száma, ami 1...5 között lehet, második az adott táblázat pontjának koordinátája (0-tól!), ahol a módosítást el kívánjuk végezni. Ez táblázattól függően 0...9 vagy 0...21 érték lehet. A harmadik paraméter maga az érték, amit be kell írni az adott táblázatpontra. Ez 0...199 lehet. A táblázatok: 
+1. Hőmérséklet – dúsításmódosítás tábla (10 tagos) 
+2. Gázpedálállás szerinti dúsítási tábla 1. (10 tagos) 
+3. Gázpedálállás szerinti dúsítási tábla 2. (10 tagos) 
+4. Fordulatszám szerinti dúsítási tábla 1. (21 tagos) 
+5. Fordulatszám szerinti dúsítási tábla 2. (21 tagos) 
+6. Injektor kapacitástúllépési tábla (ez csak olvasható és nullázható) 
+A táblákról a későbbiekben még részletesebben is esik szó.
+Formátum (1-es tábla 2-es pontja 10%): CSETTABPOINT=1,02,010 (mindenképpen 2 és 3 karakter, ha szükséges, előtte nullával)',
+	CSETTARGETLAM =>
+'Ezzel a paranccsal beállítható, hogy fix programozott üzemmódban (3-7. üzemmód) a lambda trimmer milyen szabályozási eljárást alkalmazzon. Az első paraméter az elvárt számított lambda közép feszültségérték minimális határértékét jelenti, míg a második a maximális határértékét 10mV-os egységekben. Tehát ha pl. lambda 1.00-át szeretnénk tartani, aminek 450-550mV számított középérték feszültségszint felel meg a gyakorlatban, akkor 45,55 lesz a két beállított paraméter.
+Értékek lehetnek: 0...79. Amennyiben a beállított érték mindkét paraméternél 0, az eredeti lambdaszonda jelének követése lesz az átalakító lambda kimenetén.
+Alapérték 0,0.
+Formátum: CSETTARGETLAM=00,00',
+	CSETTPSMAX =>
+'Gázpedálállás érzékelő illesztése maximális kitérésnél. Ha a gázpedálállás érzékelő maximális álláson van, és a gyújtás bekapcsolt állapotban van, akkor ennek a parancsnak a hatására automatikusan beparaméterezi a maximális gázpedálállás értéket, így a maximális pedálállás illesztés meg is történik ezzel. Amennyiben a járműben csak elektromos folytószelep helyzetjeladójára lehet kötni a gázpedálállás érzékelő jelvezetékét, akkor ezt a beállítást menet közben, maximális pedálállás melletti gyorsításkor lehet megtenni. Egyes járműveknél előfordul, hogy csak járó motor mellett lehet jól felvenni a gázpedálállás szenzor maximális jelszintjéhez tartozó értéket. Ilyenkor járó motornál kell maximális gázpedálállást nyomni, maga az automata paraméterezés csak kb. 5-6 mp-ig tart. Paramétert nem kell hozzá írni.',
+	CSETTPSMIN =>
+'Gázpedálállás érzékelő illesztése 0 kitérésnél (alaphelyzet). Ha a gázpedálállás érzékelő alaphelyzetben van, és a gyújtás bekapcsolt állapotban van, akkor ennek a parancsnak a hatására automatikusan beparaméterezi a minimális gázpedálállás értéket, így a minimális pedálállás illesztés meg is történik ezzel. Amennyiben a járműben csak elektromos folytószelep helyzetjeladójára lehet kötni a gázpedálállás érzékelő jelvezetékét, vagy csak járó motor mellett lehet jól felvenni a gázpedálállás szenzor minimális jelszintjéhez tartozó értéket, akkor járó motornál kell alap gázpedálállást hagyni, az automata paraméterezés ideéig. Paramétert nem kell hozzá írni.',
+	CSETTPSPOINT =>
+'Ezzel a paranccsal az automata sport és eco módok gázpedálállás feltételeit lehet beállítani. Az első paraméter az eco mód maximális gázpedálállás százalékban, ennek értéke 0...49 % lehet. A második paraméter a sport mód minimális gázpedálállás ugyancsak százalékban, melynek értéke 50...99 % lehet.
+Formátum az alapértékekkel: CSETTPSPOINT=25,80 (mindenképpen két karakter, ha szükséges, előtte nullával)',
+	CSETTRIM =>
+'Lambda trimmer szabályzási paramétereit lehet itt beállítani. Első paraméter a szabályzási feszültségkülönbség-küszöb. Ez 10mV-os egységekben adható meg, és értéke 0...9 lehet. A második paraméter a trimmer lépésszáma, mely szintén 0...9 értéket vehet fel, de jellemzően ennek értéke 1, ha 1mp-es ciklusidő van beállítva. A harmadik paraméter a lambda trimmelés ciklusideje ms-ban, azaz ennyi időnként szabályozza a kimenet függvényparamétereit a kívánt módon újra. Ennek értéke 400...4999ms lehet. Csak speciális esetben használható!
+Formátum alapértékekkel (30mV-os szabályzási ablakkal): CSETTRIM=3,1,1000'
+)
