@@ -41,8 +41,26 @@ my %opts = (
 Getopt::Std::getopts('d:l:i:crhvs', \%opts);
 
 my $intl_file = undef;
+my $messages = {};
 if (defined($opts{i})) {
 	$intl_file = $opts{i};
+
+	my $translations = '';
+	if (open(TRANS, '<', $intl_file)) {
+		while (<TRANS>) {
+			$translations .= $_;
+		}
+	}
+	close(TRANS);
+
+	unless ($messages = eval '{' . $translations . '}' ) {
+		say STDERR "ERROR!\nCouldn't parse ${intl_file}!"  unless $messages;
+		say STDERR "$@"  if $@;
+		say STDERR "$!"  unless defined $messages;
+		exit(1);
+	}
+
+	undef($translations);
 }
 
 if (defined($opts{h})) {
@@ -1285,15 +1303,8 @@ sub license_dialog
 sub _
 {
 	my $msg = shift;
-	my %messages = ();
 
-
-	return($msg) unless defined($intl_file);
-	return($msg) unless open(DUMMY, '<', $intl_file); close(DUMMY);
-
-	%messages = do $intl_file;
-
-	defined($messages{$msg}) ? return($messages{$msg}) : return($msg);
+	defined($messages->{$msg}) ? return($messages->{$msg}) : return($msg);
 }
 
 sub HELP_MESSAGE
