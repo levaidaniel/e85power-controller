@@ -1,4 +1,3 @@
-%messages = (
 	'About' => 'Névjegy',
 	'Average / 1km:' => 'Átlag / 1km:',
 	'Average / 30km:' => 'Átlag / 30km:',
@@ -16,7 +15,7 @@
 	'Details' => 'Részletek',
 	'Disconnected' => 'Nincs kapcs.',
 	'Do you really want to quit?' => 'Valóban ki szeretnél lépni?',
-	'E85' => 'E85';
+	'E85' => 'E85',
 	'Eco:' => 'Eco:',
 	'Engine temp.:' => 'Motor hőfok:',
 	'Enrich avg.:' => 'Dúsítás átl.:',
@@ -31,14 +30,14 @@
 	'Lambda:' => 'Lambda:',
 	'License' => 'Licenc',
 	'Menu' => 'Menü',
-	'Mix' => 'Kevert';
+	'Mix' => 'Kevert',
 	'Mode:' => 'Mód:',
 	'Monitor' => 'Figyelés',
 	'Notes' => 'Jegyzetek',
 	'OUT min/mid/max:' => 'KI min/köz/max:',
 	'Open:' => 'Nyitás:',
 	'Pages' => 'Lapok',
-	'Petrol' => 'Benzin';
+	'Petrol' => 'Benzin',
 	'Predicted:' => 'Jósolt:',
 	'Quit' => 'Kilép',
 	'RPM:' => 'RPM:',
@@ -69,4 +68,3 @@
 	'this help' => 'ez a segítség',
 	'use the specified serial device' => 'a megadott soros eszközt használjuk',
 	'version information' => 'verzió információ',
-)
